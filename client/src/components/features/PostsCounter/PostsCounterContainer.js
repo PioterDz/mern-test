@@ -3,7 +3,7 @@ import { getNumberOfPosts, loadPostsRequest } from '../../../redux/postsRedux';
 import PostsCounter from './PostsCounter';
 
 const mapStateToProps = state => ({
-  posts: getNumberOfPosts(state),
+  postsCount: getNumberOfPosts(state),
 })
 
 const mapDispatchToProps = dispatch => ({

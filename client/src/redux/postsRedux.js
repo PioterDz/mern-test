@@ -9,7 +9,7 @@ const createActionName = name => `app/${reducerName}/${name}`;
 
 export const getPosts = ({ posts }) => posts;
 
-export const getNumberOfPosts = ({ posts }) => posts;
+export const getNumberOfPosts = ({ posts }) => posts.length;
 
 /* ACTIONS */
 
