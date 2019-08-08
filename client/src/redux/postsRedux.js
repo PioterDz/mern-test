@@ -29,6 +29,7 @@ export const loadPostsRequest = () => {
       try {
   
         let res = await axios.get(`${API_URL}/posts`);
+        await new Promise((resolve, reject) => setTimeout(resolve, 2000));
         dispatch(loadPosts(res.data));
   
       } catch(e) {
@@ -36,7 +37,7 @@ export const loadPostsRequest = () => {
       }
   
     };
-};
+  };
 
 /* REDUCER */
 
