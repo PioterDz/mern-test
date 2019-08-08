@@ -7,10 +7,10 @@ import HtmlBox from '../../common/HtmlBox/HtmlBox';
 
 import './PostSummary.scss';
 
-const PostSummary = ({ id, title, content }) => (
+const PostSummary = ({ id, title, content, cutText }) => (
   <article className="post-summary">
     <SmallTitle>{title}</SmallTitle>
-    <HtmlBox>{content}</HtmlBox>
+    <HtmlBox>{cutText(content, 250)}</HtmlBox>
     <Button variant="primary">
       Read more
     </Button>

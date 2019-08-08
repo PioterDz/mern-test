@@ -3,10 +3,10 @@ import { PropTypes } from 'prop-types';
 
 import PostSummary from '../PostSummary/PostSummary';
 
-const PostsList = ({ posts }) => (
+const PostsList = ({ posts, cutText }) => (
   <div>
     <section className="posts-list">
-      {posts.map(post => <PostSummary key={post.id} {...post} />)}
+      {posts.map(post => <PostSummary cutText={cutText} key={post.id} {...post} />)}
     </section>
   </div>
 );

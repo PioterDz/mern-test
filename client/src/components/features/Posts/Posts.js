@@ -3,21 +3,59 @@ import { PropTypes } from 'prop-types';
 
 import PostsList from '../PostsList/PostsList';
 import Spinner from '../../common/Spinner/Spinner';
+import Alert from '../../common/Alert/Alert';
 
 class Posts extends React.Component {
+  constructor(props){
+    super(props);
+    this.cutText = this.cutText.bind(this);
+  }
 
   componentDidMount() {
     const { loadPosts } = this.props;
     loadPosts();
   }
 
+  cutText(content, maxLength) {
+    if(maxLength < 1) {
+      return 'Error';
+    }
+    else if(maxLength > content.length) {
+      const arr = content.split('');
+      const lastIndex = arr.lastIndexOf(' ', maxLength);
+      const newContent = content.substr(0, lastIndex);
+      return newContent + '...';
+    }
+    else {
+      return content;
+    }
+  }
+
   render() {
     const { posts, request } = this.props;
+    let spinner = null;
+    let postsList = null;
+    let alert = null;
+
+    if(request.pending === true || request.success === null) {
+      spinner = <Spinner />;
+    }
+    else if(request.pending === false && request.success === true && posts.length > 0) {
+      postsList = <PostsList posts={posts} cutText={this.cutText} />;
+    }
+    else if(request.pending === false && request.error !== null) {
+      alert = <Alert variant={'error'} children={request.error} />;
+    }
+    else if(request.pending === false && request.success === true && posts.length === 0) {
+      alert = <Alert variant={'info'} children={'no posts'} />;
+    }
+
   
     return (
       <div>
-        {request.pending && <Spinner />}
-        <PostsList posts={posts} />
+        {spinner}
+        {postsList}
+        {alert}
       </div>
     );
   }
