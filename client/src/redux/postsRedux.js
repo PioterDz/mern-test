@@ -17,12 +17,14 @@ export const LOAD_POSTS = createActionName('LOAD_POSTS');
 export const START_REQUEST = createActionName('START_REQUEST');
 export const END_REQUEST = createActionName('END_REQUEST');
 export const ERROR_REQUEST = createActionName('ERROR_REQUEST');
+export const CLEAN_POSTS = createActionName('CLEAN_POSTS');
 
 
 export const loadPosts = payload => ({ payload, type: LOAD_POSTS });
 export const startRequest = () => ({ type: START_REQUEST });
 export const endRequest = () => ({ type: END_REQUEST });
 export const errorRequest = error => ({ error, type: ERROR_REQUEST });
+export const cleanPosts = () => ({ type: CLEAN_POSTS });
 
 
 /* INITIAL STATE */
@@ -40,10 +42,11 @@ const initialState = {
 
 export const loadPostsRequest = () => {
     return async dispatch => {
-  
+        
+        dispatch(cleanPosts());
         dispatch(startRequest());
         try {
-    
+            
             let res = await axios.get(`${API_URL}/posts`);
             await new Promise((resolve, reject) => setTimeout(resolve, 2000));
             dispatch(loadPosts(res.data));
@@ -68,6 +71,8 @@ export default function reducer(statePart = initialState, action = {}) {
             return { ...statePart, request: { pending: false, error: null, success: true } };
         case ERROR_REQUEST:
             return { ...statePart, request: { pending: false, error: action.error, success: false } };
+        case CLEAN_POSTS:
+            return { ...statePart, data: [] };
         default:
             return statePart;
     }
