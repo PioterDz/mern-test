@@ -66,6 +66,13 @@ Posts.propTypes = {
       content: PropTypes.string.isRequired,
     })
   ),
+  request: PropTypes.objectOf(
+    PropTypes.shape({
+      pending: PropTypes.bool.isRequired,
+      error: PropTypes.bool.isRequired,
+      success: PropTypes.bool.isRequired,
+    })
+  ),
   loadPosts: PropTypes.func.isRequired,
 };
 

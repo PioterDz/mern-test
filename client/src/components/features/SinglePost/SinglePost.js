@@ -23,20 +23,18 @@ class SinglePost extends React.Component {
     let singlePostContent = null;
     let singlePostTitle = null;
     let alert = null;
-
+    
     if (request.pending || request.success === null) {
       spinner = <Spinner />;
-    } else if (!request.pending && request.success && post.length > 0) {
-      const singlePost = post.shift();
-      singlePostTitle = <PageTitle> { singlePost.title }</PageTitle>;
-      singlePostContent = <HtmlBox>{ singlePost.content }</HtmlBox>;
+    } else if (!request.pending && request.success && Object.keys(post).length > 0) {
+      singlePostTitle = <PageTitle>{ post.title }</PageTitle>;
+      singlePostContent = <HtmlBox>{ post.content }</HtmlBox>;
     } else if (!request.pending && request.error !== null) {
       alert = <Alert variant={'error'} children={request.error} />;
-    } else if (!request.pending && request.success && post.length === 0) {
+    } else if (!request.pending && request.success && Object.keys(post).length === 0) {
       alert = <Alert variant={'info'} children={'no posts'} />;
     }
 
-    console.log(post, singlePostTitle, singlePostContent, 'post in render');
 
     return (
       <div>
@@ -50,9 +48,21 @@ class SinglePost extends React.Component {
 }
 
 SinglePost.propTypes = {
-  id: PropTypes.string,
-  title: PropTypes.string,
-  content: PropTypes.string,
+  post: PropTypes.objectOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+    })
+  ),
+  request: PropTypes.objectOf(
+    PropTypes.shape({
+      pending: PropTypes.bool.isRequired,
+      error: PropTypes.bool.isRequired,
+      success: PropTypes.bool.isRequired,
+    })
+  ),
+  loadPost: PropTypes.func.isRequired,
 };
 
 export default SinglePost;
