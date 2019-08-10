@@ -18,14 +18,14 @@ export const LOAD_POSTS = createActionName('LOAD_POSTS');
 export const START_REQUEST = createActionName('START_REQUEST');
 export const END_REQUEST = createActionName('END_REQUEST');
 export const ERROR_REQUEST = createActionName('ERROR_REQUEST');
-export const LOAD_SINGLE_POST = createActionName('LOAD_SINGLE_POST')
+export const LOAD_SINGLE_POST = createActionName('LOAD_SINGLE_POST');
 
 
 export const loadPosts = payload => ({ payload, type: LOAD_POSTS });
 export const startRequest = () => ({ type: START_REQUEST });
 export const endRequest = () => ({ type: END_REQUEST });
 export const errorRequest = error => ({ error, type: ERROR_REQUEST });
-export const loadSinglePost = payload => ({ payload, type: LOAD_SINGLE_POST })
+export const loadSinglePost = payload => ({ payload, type: LOAD_SINGLE_POST });
 
 /* INITIAL STATE */
 
@@ -59,14 +59,15 @@ export const loadPostsRequest = () => {
     };
 };
 
-export const loadSinglePostRequest = () => {
+export const loadSinglePostRequest = (id) => {
     return async dispatch => {
 
         dispatch(startRequest());
         try {
-
-            let res = await axios.get(`${API_URL}/posts/:id`);
+            console.log('try', `${API_URL}/posts/${id}`);
+            let res = await axios.get(`${API_URL}/posts/${id}`);
             await new Promise((resolve, reject) => setTimeout(resolve, 2000));
+            console.log(res.data);
             dispatch(loadSinglePost(res.data));
             dispatch(endRequest());
         } catch(e) {

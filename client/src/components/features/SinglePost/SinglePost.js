@@ -1,8 +1,10 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 
-import SectionTitle from '../../common/SectionTitle/SectionTitle';
+import PageTitle from '../../common/PageTitle/PageTitle';
 import HtmlBox from '../../common/HtmlBox/HtmlBox';
+import Spinner from '../../common/Spinner/Spinner';
+import Alert from '../../common/Alert/Alert';
 
 class SinglePost extends React.Component {
   constructor(props){
@@ -11,18 +13,37 @@ class SinglePost extends React.Component {
 
   componentDidMount() {
     const { loadPost } = this.props;
-    const id = this.props.match.params.id;
-    loadPost();
+    loadPost(this.props.match.params.id);
   }
 
   render() {
-    const { posts } = this.props;
+    const { post, request } = this.props;
 
+    let spinner = null;
+    let singlePostContent = null;
+    let singlePostTitle = null;
+    let alert = null;
+
+    if (request.pending || request.success === null) {
+      spinner = <Spinner />;
+    } else if (!request.pending && request.success && post.length > 0) {
+      const singlePost = post.shift();
+      singlePostTitle = <PageTitle> { singlePost.title }</PageTitle>;
+      singlePostContent = <HtmlBox>{ singlePost.content }</HtmlBox>;
+    } else if (!request.pending && request.error !== null) {
+      alert = <Alert variant={'error'} children={request.error} />;
+    } else if (!request.pending && request.success && post.length === 0) {
+      alert = <Alert variant={'info'} children={'no posts'} />;
+    }
+
+    console.log(post, singlePostTitle, singlePostContent, 'post in render');
 
     return (
       <div>
-        <SectionTitle>{posts.title}</SectionTitle>
-        <HtmlBox>{posts.content}</HtmlBox>
+        {spinner}
+        {singlePostTitle}
+        {singlePostContent}
+        {alert}
       </div>
     );
   }

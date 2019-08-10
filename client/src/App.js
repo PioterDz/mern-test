@@ -8,7 +8,7 @@ import Posts from './components/pages/Posts/PostsPage';
 import Contact from './components/pages/Contact/ContactPage';
 import NotFound from './components/pages/NotFound/NotFoundPage';
 import AddPost from './components/features/AddPost/AddPost';
-import SinglePost from './components/features/SinglePost/SinglePost';
+import SinglePost from './components/features/SinglePost/SinglePostContainer';
 
 class App extends React.Component {
 
