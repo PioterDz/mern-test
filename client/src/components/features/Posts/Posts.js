@@ -17,16 +17,14 @@ class Posts extends React.Component {
   }
 
   cutText(content, maxLength) {
-    
+
     if (maxLength < 1) {
       return 'Error';
-
     } else if (maxLength > content.length) {
       const arr = content.split('');
       const lastIndex = arr.lastIndexOf(' ', maxLength);
       const newContent = content.substr(0, lastIndex);
       return newContent + '...';
-
     } else {
       return content;
     }
@@ -38,16 +36,13 @@ class Posts extends React.Component {
     let postsList = null;
     let alert = null;
 
-    if(request.pending || request.success === null) {
+    if (request.pending || request.success === null) {
       spinner = <Spinner />;
-    }
-    else if(!request.pending && request.success && posts.length > 0) {
+    } else if (!request.pending && request.success && posts.length > 0) {
       postsList = <PostsList posts={posts} cutText={this.cutText} />;
-    }
-    else if(!request.pending && request.error !== null) {
+    } else if (!request.pending && request.error !== null) {
       alert = <Alert variant={'error'} children={request.error} />;
-    }
-    else if(!request.pending && request.success && posts.length === 0) {
+    } else if (!request.pending && request.success && posts.length === 0) {
       alert = <Alert variant={'info'} children={'no posts'} />;
     }
 
@@ -69,6 +64,13 @@ Posts.propTypes = {
       id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       content: PropTypes.string.isRequired,
+    })
+  ),
+  request: PropTypes.objectOf(
+    PropTypes.shape({
+      pending: PropTypes.bool.isRequired,
+      error: PropTypes.bool.isRequired,
+      success: PropTypes.bool.isRequired,
     })
   ),
   loadPosts: PropTypes.func.isRequired,
