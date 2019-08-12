@@ -22,12 +22,14 @@ class SinglePost extends React.Component {
     let spinner = null;
     let singlePostContent = null;
     let singlePostTitle = null;
+    let author = null;
     let alert = null;
     
     if (request.pending || request.success === null) {
       spinner = <Spinner />;
     } else if (!request.pending && request.success && Object.keys(post).length > 0) {
       singlePostTitle = <PageTitle>{ post.title }</PageTitle>;
+      author = <p>Author: { post.author }</p>;
       singlePostContent = <HtmlBox>{ post.content }</HtmlBox>;
     } else if (!request.pending && request.error !== null) {
       alert = <Alert variant={'error'} children={request.error} />;
@@ -40,6 +42,7 @@ class SinglePost extends React.Component {
       <div>
         {spinner}
         {singlePostTitle}
+        {author}
         {singlePostContent}
         {alert}
       </div>
@@ -53,6 +56,7 @@ SinglePost.propTypes = {
       id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       content: PropTypes.string.isRequired,
+      author: PropTypes.string.isRequired,
     })
   ),
   request: PropTypes.objectOf(
