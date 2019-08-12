@@ -33,22 +33,10 @@ class SinglePost extends React.Component {
 }
 
 SinglePost.propTypes = {
-  post: PropTypes.objectOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
-      author: PropTypes.string.isRequired,
-    })
-  ),
-  request: PropTypes.objectOf(
-    PropTypes.shape({
-      pending: PropTypes.bool.isRequired,
-      error: PropTypes.bool.isRequired,
-      success: PropTypes.bool.isRequired,
-    })
-  ),
+  post: PropTypes.object.isRequired,
+  request: PropTypes.object.isRequired,
   loadPost: PropTypes.func.isRequired,
+  resetRequest: PropTypes.func.isRequired
 };
 
 export default SinglePost;

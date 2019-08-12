@@ -65,6 +65,7 @@ class EditPost extends React.Component {
                     label="Title"
                     value={post.title}
                     onChange={handleChange}
+                    name="title"
                 />
         
                 <TextField

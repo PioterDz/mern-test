@@ -48,14 +48,9 @@ Posts.propTypes = {
       author: PropTypes.string.isRequired,
     })
   ),
-  request: PropTypes.objectOf(
-    PropTypes.shape({
-      pending: PropTypes.bool.isRequired,
-      error: PropTypes.bool.isRequired,
-      success: PropTypes.bool.isRequired,
-    })
-  ),
+  request: PropTypes.object.isRequired,
   loadPosts: PropTypes.func.isRequired,
+  resetRequest: PropTypes.func.isRequired
 };
 
 export default Posts;

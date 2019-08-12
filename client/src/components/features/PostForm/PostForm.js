@@ -63,6 +63,7 @@ class PostForm extends React.Component {
             label="Title"
             value={post.title}
             onChange={handleChange}
+            name="title"
         />
 
         <TextField
@@ -91,6 +92,7 @@ class PostForm extends React.Component {
 PostForm.propTypes = {
     request: PropTypes.object.isRequired,
     addPost: PropTypes.func.isRequired,
+    resetRequest: PropTypes.func.isRequired
 };
 
 export default PostForm;
