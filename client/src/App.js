@@ -9,9 +9,9 @@ import Contact from './components/pages/Contact/ContactPage';
 import NotFound from './components/pages/NotFound/NotFoundPage';
 import AddPost from './components/features/AddPost/AddPost';
 import SinglePost from './components/features/SinglePost/SinglePostContainer';
+import EditPost from './components/features/EditPost/EditPostContainer';
 
 class App extends React.Component {
-
 
   render() {
     return (
@@ -22,6 +22,7 @@ class App extends React.Component {
           <Route path="/contact" exact component={Contact} />
           <Route path="/posts/new" exact component={AddPost} />
           <Route path="/posts/:id" exact component={SinglePost} />
+          <Route path="/posts/edit/:id" exact component={EditPost} />
           <Route component={NotFound} />
         </Switch>
       </MainLayout>
