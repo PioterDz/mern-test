@@ -7,66 +7,36 @@ import Spinner from '../../common/Spinner/Spinner';
 import Alert from '../../common/Alert/Alert';
 
 class SinglePost extends React.Component {
-  constructor(props){
-    super(props);
-  }
 
   componentDidMount() {
-    const { loadPost } = this.props;
+    const { loadPost, resetRequest } = this.props;
+    resetRequest();
     loadPost(this.props.match.params.id);
   }
 
   render() {
     const { post, request } = this.props;
-
-    let spinner = null;
-    let singlePostContent = null;
-    let singlePostTitle = null;
-    let author = null;
-    let alert = null;
     
-    if (request.pending || request.success === null) {
-      spinner = <Spinner />;
-    } else if (!request.pending && request.success && Object.keys(post).length > 0) {
-      singlePostTitle = <PageTitle>{ post.title }</PageTitle>;
-      author = <p>Author: { post.author }</p>;
-      singlePostContent = <HtmlBox>{ post.content }</HtmlBox>;
-    } else if (!request.pending && request.error !== null) {
-      alert = <Alert variant={'error'} children={request.error} />;
-    } else if (!request.pending && request.success && Object.keys(post).length === 0) {
-      alert = <Alert variant={'info'} children={'no posts'} />;
-    }
-
-
+    if (request.pending || request.success === null) return <Spinner />
+    else if (!request.pending && request.error !== null) return <Alert variant={'error'} children={request.error} />
+    else if (!request.pending && request.success && Object.keys(post).length === 0) return <Alert variant={'info'} children={'no posts'} />
+    else if (!request.pending && request.success && Object.keys(post).length > 0)
     return (
       <div>
-        {spinner}
-        {singlePostTitle}
-        {author}
-        {singlePostContent}
-        {alert}
+      <PageTitle>{ post.title }</PageTitle>
+      <p>Author: { post.author }</p>
+      <HtmlBox>{ post.content }</HtmlBox>
       </div>
     );
+
   }
 }
 
 SinglePost.propTypes = {
-  post: PropTypes.objectOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
-      author: PropTypes.string.isRequired,
-    })
-  ),
-  request: PropTypes.objectOf(
-    PropTypes.shape({
-      pending: PropTypes.bool.isRequired,
-      error: PropTypes.bool.isRequired,
-      success: PropTypes.bool.isRequired,
-    })
-  ),
+  post: PropTypes.object.isRequired,
+  request: PropTypes.object.isRequired,
   loadPost: PropTypes.func.isRequired,
+  resetRequest: PropTypes.func.isRequired
 };
 
 export default SinglePost;

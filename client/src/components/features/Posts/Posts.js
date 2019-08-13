@@ -6,17 +6,14 @@ import Spinner from '../../common/Spinner/Spinner';
 import Alert from '../../common/Alert/Alert';
 
 class Posts extends React.Component {
-  constructor(props){
-    super(props);
-    this.cutText = this.cutText.bind(this);
-  }
 
   componentDidMount() {
-    const { loadPosts } = this.props;
+    const { loadPosts, resetRequest } = this.props;
+    resetRequest();
     loadPosts();
   }
 
-  cutText(content, maxLength) {
+  cutText = (content, maxLength) => {
 
     if (maxLength < 1) {
       return 'Error';
@@ -32,49 +29,21 @@ class Posts extends React.Component {
 
   render() {
     const { posts, request } = this.props;
-    let spinner = null;
-    let postsList = null;
-    let alert = null;
 
-    if (request.pending || request.success === null) {
-      spinner = <Spinner />;
-    } else if (!request.pending && request.success && posts.length > 0) {
-      postsList = <PostsList posts={posts} cutText={this.cutText} />;
-    } else if (!request.pending && request.error !== null) {
-      alert = <Alert variant={'error'} children={request.error} />;
-    } else if (!request.pending && request.success && posts.length === 0) {
-      alert = <Alert variant={'info'} children={'no posts'} />;
-    }
+    if (request.pending || request.success === null) return <Spinner />
+    else if (!request.pending && request.error !== null) return <Alert variant={'error'} children={request.error} />
+    else if (!request.pending && request.success && posts.length === 0) return <Alert variant={'info'} children={'no posts'} />
+    else if (!request.pending && request.success && posts.length > 0) return <PostsList posts={posts} cutText={this.cutText} />
 
-  
-    return (
-      <div>
-        {spinner}
-        {postsList}
-        {alert}
-      </div>
-    );
   }
 
 };
 
 Posts.propTypes = {
-  posts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
-      author: PropTypes.string.isRequired,
-    })
-  ),
-  request: PropTypes.objectOf(
-    PropTypes.shape({
-      pending: PropTypes.bool.isRequired,
-      error: PropTypes.bool.isRequired,
-      success: PropTypes.bool.isRequired,
-    })
-  ),
+  posts: PropTypes.array.isRequired,
+  request: PropTypes.object.isRequired,
   loadPosts: PropTypes.func.isRequired,
+  resetRequest: PropTypes.func.isRequired
 };
 
 export default Posts;
