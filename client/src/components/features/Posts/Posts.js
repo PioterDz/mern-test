@@ -40,14 +40,7 @@ class Posts extends React.Component {
 };
 
 Posts.propTypes = {
-  posts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
-      author: PropTypes.string.isRequired,
-    })
-  ),
+  posts: PropTypes.array.isRequired,
   request: PropTypes.object.isRequired,
   loadPosts: PropTypes.func.isRequired,
   resetRequest: PropTypes.func.isRequired
