@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { getPosts, getRequest, loadPostsByPageRequest, getPages, resetRequest, getPresentPage } from '../../../redux/postsRedux';
+import { getPosts, getRequest, loadPostsByPageRequest, getPages, resetRequest, getPresentPage, getInitialPage, getPostsPerPage, getPaginationBool } from '../../../redux/postsRedux';
 import Posts from './Posts';
 
 const mapStateToProps = state => ({
@@ -7,7 +7,9 @@ const mapStateToProps = state => ({
   request: getRequest(state),
   pages: getPages(state),
   presentPage: getPresentPage(state),
-
+  initialPage: getInitialPage(state),
+  postsPerPage: getPostsPerPage(state),
+  pagination: getPaginationBool(state)
 });
 
 const mapDispatchToProps = dispatch => ({

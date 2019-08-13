@@ -13,6 +13,9 @@ export const getRequest = ({ posts }) => posts.request;
 export const getSinglePost = ({ posts }) => posts.singlePost;
 export const getPages = ({ posts }) => Math.ceil(posts.amount / posts.postsPerPage);
 export const getPresentPage = ({ posts }) => posts.presentPage;
+export const getInitialPage = ({ posts }) => posts.initialPage;
+export const getPostsPerPage = ({ posts }) => posts.postsPerPage;
+export const getPaginationBool = ({ posts }) => posts.pagination;
 
 /* ACTIONS */
 
@@ -45,7 +48,9 @@ const initialState = {
     singlePost: {},
     amount: 0,
     postsPerPage: 10,
-    presentPage: 1
+    presentPage: 1,
+    initialPage: 1,
+    pagination: true
 };
 
 /* THUNKS */

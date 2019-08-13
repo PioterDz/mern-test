@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { span } from 'react-router-dom';
 
 import './Pagination.scss';
 
@@ -9,7 +8,6 @@ class Pagination extends React.Component {
     changePage = (newPage) => {
         const { onPageChange } = this.props;
 
-        this.setState({ presentPage: newPage });
         onPageChange(newPage);
     }
 
@@ -17,7 +15,6 @@ class Pagination extends React.Component {
 
         const { pages, presentPage } = this.props;
         const { changePage } = this;
-      
         return (
             <div className="pagination">
                 
