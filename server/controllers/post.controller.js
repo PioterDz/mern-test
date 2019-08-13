@@ -50,11 +50,9 @@ exports.editPost = async function (req, res) {
 
   try {
     const { title, author, content } = req.body;
-    let editedPost = new Post(req.body);
-    Post.findByIdAndUpdate(req.params.id, editedPost, {new: true, useFindAndModify: false, setDefaultsOnInsert: true}, (err, editedPost) => {
-      if (err) return res.status(500).json(err);
-      return res.status(200).json(editedPost);
-    });
+
+    res.status(200).json(await Post.updateOne( { id : req.params.id }, req.body));
+
   } catch(err) {
     res.status(500).json(err);
   }

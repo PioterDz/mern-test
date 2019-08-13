@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import ReactHtmlParser from 'react-html-parser';
 
 const HtmlBox = ({ children, ...otherProps }) => (
-  <div>
-    <p {...otherProps} className="html-box">
+    <span {...otherProps} className="html-box">
       {ReactHtmlParser(children)}
-    </p>
-  </div>
+    </span>
 );
 
 HtmlBox.propTypes = {
