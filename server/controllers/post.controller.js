@@ -82,3 +82,26 @@ exports.getPostsByRange = async function (req, res) {
 
 };
 
+//get random post
+
+exports.getRandomPost = async function(req, res) {
+
+  try {
+    await Post.count().exec(function(err, count){
+
+      const random = Math.floor(Math.random() * count);
+      
+      Post.findOne().skip(random).exec(
+        function (err, result) {
+          if(err) res.status(500).json(err);
+          res.status(200).json(result);
+        }
+      )
+    });
+
+  } catch(err) {
+    res.status(500).json(err);
+  }
+
+};
+

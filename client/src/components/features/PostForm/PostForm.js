@@ -34,7 +34,7 @@ class PostForm extends React.Component {
 PostForm.propTypes = {
     request: PropTypes.object.isRequired,
     resetRequest: PropTypes.func.isRequired,
-    post: PropTypes.object,
+    post: PropTypes.object.isRequired,
     handleChange: PropTypes.func.isRequired,
     handleEditor: PropTypes.func.isRequired,
 };

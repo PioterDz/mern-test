@@ -41,10 +41,10 @@ class EditPost extends React.Component {
 
 EditPost.propTypes = {
     request: PropTypes.object.isRequired,
-    post: PropTypes.object,
-    singlePost: PropTypes.object,
+    post: PropTypes.object.isRequired,
+    singlePost: PropTypes.object.isRequired,
     handleChange: PropTypes.func.isRequired,
     handleEditor: PropTypes.func.isRequired,
 };
 
-export default EditPost;
+export default withPost(EditPost);

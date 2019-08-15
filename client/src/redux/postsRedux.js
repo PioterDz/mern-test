@@ -153,6 +153,24 @@ export const loadPostsByPageRequest = (page, postsPage) => {
     };
 };
 
+export const loadRandomPostRequest = () => {
+    return async dispatch => {
+  
+        dispatch(startRequest());
+        try {
+            let res = await axios.get(`${API_URL}/random`);
+            await new Promise((resolve, reject) => setTimeout(resolve, 2000));
+            console.log('loading');
+            await dispatch(loadSinglePost(res));
+            dispatch(endRequest());
+
+        } catch(e) {
+            dispatch(errorRequest(e.message));
+        }
+
+    };
+}
+
 /* REDUCER */
 
 export default function reducer(statePart = initialState, action = {}) {
