@@ -1,41 +1,38 @@
 import React from 'react';
 
-const withPost = (props) => WrappedComponent => {
-    class WithPost extends React.Component {
-
+function withPost(WrappedComponent) {
+    return class extends React.Component {
+        constructor(props) {
+            super(props);
+    
+        }
+    
         state = {
             post: {
-              title: '',
-              author: '',
-              content: ''
+            title: '',
+            author: '',
+            content: ''
             }
         }
-
-        componentDidMount() {
-            const { resetRequest } = this.props;
-            resetRequest();
-        }
-
+    
         handleChange = (e) => {
             const { post } = this.state;
             this.setState({ post: { ...post, [e.target.name]: e.target.value }});
         }
-        
+    
         handleEditor = (text) => {
             const { post } = this.state;
             this.setState({ post: { ...post, content: text }});
         }
 
-        feelUpState = (state) => {
-            this.setState({ post: { title: state.title, author: state.author, content: state.content }});
+        fillUpState = (data) => {
+            this.setState({ post: { title: data.title, author: data.author, content: data.content }})
         }
-        
-
+    
         render() {
-            return <WrappedComponent post={this.state.post} handleChange={this.handleChange} handleEditor={this.handleEditor} feelUpState={this.feelUpState} {...this.props} />
+            return <WrappedComponent post={this.state.post} handleChange={this.handleChange} handleEditor={this.handleEditor} fillUpState={this.fillUpState} {...this.props} />;
         }
-    }
-    return WithPost
+    };
 }
 
 export default withPost;
