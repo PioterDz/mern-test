@@ -7,6 +7,7 @@ import Button from '../../common/Button/Button';
 import Alert from '../../common/Alert/Alert';
 import Spinner from '../../common/Spinner/Spinner';
 import '../PostForm/PostForm.scss';
+import withPost from '../withPost/withPost';
 
 import Editor from 'react-medium-editor';
 import 'medium-editor/dist/css/medium-editor.css';
@@ -14,20 +15,20 @@ import 'medium-editor/dist/css/themes/default.css';
 
 class EditPost extends React.Component {
     state = {
-        post: {
-          title: '',
-          author: '',
-          content: ''
-        },
+        // post: {
+        //   title: '',
+        //   author: '',
+        //   content: ''
+        // },
         edited: false,
     }
 
     async componentDidMount() {
-        const { resetRequest, loadPost } = this.props;
+        const { loadPost, resetRequest, singlePost, feelUpState } = this.props;
         resetRequest();
         await loadPost(this.props.match.params.id);
-        const { post } = this.props;
-        await this.setState({ post: { title: post.title, author: post.author, content: post.content }});
+        feelUpState(singlePost);
+        // await this.setState({ post: { title: post.title, author: post.author, content: post.content }});
     }
 
     editPost = (e) => {
@@ -39,20 +40,20 @@ class EditPost extends React.Component {
         if(request.success) return this.setState({ edited: true });
     }
 
-    handleChange = (e) => {
-        const { post } = this.state;
-        this.setState({ post: { ...post, [e.target.name]: e.target.value }});
-    }
+    // handleChange = (e) => {
+    //     const { post } = this.state;
+    //     this.setState({ post: { ...post, [e.target.name]: e.target.value }});
+    // }
 
-    handleEditor = (text) => {
-        const { post } = this.state;
-        this.setState({ post: { ...post, content: text }});
-    }
+    // handleEditor = (text) => {
+    //     const { post } = this.state;
+    //     this.setState({ post: { ...post, content: text }});
+    // }
 
     render() {
-        const { request } = this.props;
-        const { handleChange, handleEditor, editPost } = this;
-        const { post } = this.state;
+        const { request, post, handleChange, handleEditor  } = this.props;
+        const { editPost } = this;
+        // const { post } = this.state;
     
         if(request.error) return <Alert variant="error">{request.error}</Alert>
         else if(request.success && this.state.edited) return <Alert variant="success">Post has been edited!</Alert>
@@ -96,4 +97,4 @@ EditPost.propTypes = {
     editPost: PropTypes.func.isRequired,
 };
 
-export default EditPost;
+export default withPost(EditPost);

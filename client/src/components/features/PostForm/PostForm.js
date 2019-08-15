@@ -7,6 +7,7 @@ import Button from '../../common/Button/Button';
 import Alert from '../../common/Alert/Alert';
 import Spinner from '../../common/Spinner/Spinner';
 import './PostForm.scss';
+import withPost from '../withPost/withPost';
 
 import Editor from 'react-medium-editor';
 import 'medium-editor/dist/css/medium-editor.css';
@@ -14,13 +15,13 @@ import 'medium-editor/dist/css/themes/default.css';
 
 class PostForm extends React.Component {
 
-  state = {
-    post: {
-      title: '',
-      author: '',
-      content: ''
-    }
-  }
+  // state = {
+  //   post: {
+  //     title: '',
+  //     author: '',
+  //     content: ''
+  //   }
+  // }
 
   componentDidMount() {
     const { resetRequest } = this.props;
@@ -28,29 +29,29 @@ class PostForm extends React.Component {
   }
 
   addPost = (e) => {
-    const { addPost } = this.props;
-    const { post } = this.state;
+    const { addPost, post } = this.props;
+    // const { post } = this.state;
   
     e.preventDefault();
     addPost(post);
   }
 
-  handleChange = (e) => {
-    const { post } = this.state;
-    this.setState({ post: { ...post, [e.target.name]: e.target.value }});
-  }
+  // handleChange = (e) => {
+  //   const { post } = this.state;
+  //   this.setState({ post: { ...post, [e.target.name]: e.target.value }});
+  // }
 
-  handleEditor = (text) => {
-    const { post } = this.state;
-    this.setState({ post: { ...post, content: text }});
-  }
+  // handleEditor = (text) => {
+  //   const { post } = this.state;
+  //   this.setState({ post: { ...post, content: text }});
+  // }
 
 
   render() {
  
-    const { handleChange, handleEditor, addPost } = this;
-    const { post } = this.state;
-    const { request } = this.props;
+    const { addPost } = this;
+    // const { post } = this.state;
+    const { request, post, handleChange, handleEditor } = this.props;
 
     if(request.error) return <Alert variant="error">{request.error}</Alert>
     else if(request.success) return <Alert variant="success">Post has been added!</Alert>
@@ -95,4 +96,4 @@ PostForm.propTypes = {
     resetRequest: PropTypes.func.isRequired
 };
 
-export default PostForm;
+export default withPost(PostForm);

@@ -3,7 +3,7 @@ import { getRequest, resetRequest, getSinglePost, loadSinglePostRequest, editPos
 import EditPost from './EditPost';
 
 const mapStateToProps = state => ({
-    post: getSinglePost(state),
+    singlePost: getSinglePost(state),
     request: getRequest(state),
 });
 

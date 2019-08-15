@@ -11,7 +11,6 @@ class Posts extends React.Component {
   componentDidMount() {
     const { loadPostsByPage, resetRequest, initialPage, postsPerPage } = this.props;
     
-
     resetRequest();
     loadPostsByPage(!initialPage ? 1 : initialPage, postsPerPage);
   }
