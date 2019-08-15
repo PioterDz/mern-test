@@ -4,7 +4,7 @@ const config = require('./config');
 const mongoose = require('mongoose');
 const loadTestData = require('./testData');
 const helmet = require('helmet');
-const sanitize = require('mongo-sanitize');
+const mongoSanitize = require('express-mongo-sanitize');
 
 const app = express();
 
@@ -13,9 +13,11 @@ const postRoutes = require('./routes/post.routes');
 
 app.use(cors());
 app.use(helmet());
-app.use(sanitize(req.body));
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
+app.use(mongoSanitize({
+  replaceWith: '_'
+}))
 app.use('/api', postRoutes);
 
 // connects our back end code with the database
