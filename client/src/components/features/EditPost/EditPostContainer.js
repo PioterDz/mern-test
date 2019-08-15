@@ -1,9 +1,11 @@
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { getRequest, resetRequest, getSinglePost, loadSinglePostRequest, editPostRequest } from '../../../redux/postsRedux';
 import EditPost from './EditPost';
+import withPost from '../withPost/withPost';
 
 const mapStateToProps = state => ({
-    post: getSinglePost(state),
+    singlePost: getSinglePost(state),
     request: getRequest(state),
 });
 
@@ -13,4 +15,11 @@ const mapDispatchToProps = dispatch => ({
     resetRequest: () => dispatch(resetRequest()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditPost);
+// export default connect(mapStateToProps, mapDispatchToProps)(EditPost);
+
+
+const enhance = compose(
+  withPost,
+  connect(mapStateToProps, mapDispatchToProps)
+)
+export default enhance(EditPost);

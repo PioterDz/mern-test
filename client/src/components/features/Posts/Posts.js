@@ -4,13 +4,20 @@ import { PropTypes } from 'prop-types';
 import PostsList from '../PostsList/PostsList';
 import Spinner from '../../common/Spinner/Spinner';
 import Alert from '../../common/Alert/Alert';
+import Pagination from '../../common/Pagination/Pagination';
 
 class Posts extends React.Component {
 
   componentDidMount() {
-    const { loadPosts, resetRequest } = this.props;
+    const { loadPostsByPage, resetRequest, initialPage, postsPerPage } = this.props;
+    
     resetRequest();
-    loadPosts();
+    loadPostsByPage(!initialPage ? 1 : initialPage, postsPerPage);
+  }
+
+  loadPostsPage = (page) => {
+    const { loadPostsByPage, postsPerPage } = this.props;
+    loadPostsByPage(page, postsPerPage);
   }
 
   cutText = (content, maxLength) => {
@@ -28,12 +35,19 @@ class Posts extends React.Component {
   }
 
   render() {
-    const { posts, request } = this.props;
+    const { posts, request, pages, presentPage, pagination } = this.props;
+    const { loadPostsPage } = this;
 
     if (request.pending || request.success === null) return <Spinner />
     else if (!request.pending && request.error !== null) return <Alert variant={'error'} children={request.error} />
     else if (!request.pending && request.success && posts.length === 0) return <Alert variant={'info'} children={'no posts'} />
-    else if (!request.pending && request.success && posts.length > 0) return <PostsList posts={posts} cutText={this.cutText} />
+    else if (!request.pending && request.success && posts.length > 0) return (
+      <div>      
+        <PostsList posts={posts} cutText={this.cutText} />
+        { pagination ? <Pagination presentPage={presentPage} pages={pages} onPageChange={loadPostsPage} /> : '' }
+      </div>
+
+    );
 
   }
 
@@ -42,8 +56,12 @@ class Posts extends React.Component {
 Posts.propTypes = {
   posts: PropTypes.array.isRequired,
   request: PropTypes.object.isRequired,
-  loadPosts: PropTypes.func.isRequired,
-  resetRequest: PropTypes.func.isRequired
+  loadPostsByPage: PropTypes.func.isRequired,
+  resetRequest: PropTypes.func.isRequired,
+  presentPage: PropTypes.number.isRequired,
+  initialPage: PropTypes.number.isRequired,
+  postsPerPage: PropTypes.number.isRequired,
+  pagination: PropTypes.bool.isRequired
 };
 
 export default Posts;
