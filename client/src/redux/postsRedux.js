@@ -160,7 +160,7 @@ export const loadRandomPostRequest = () => {
         try {
             let res = await axios.get(`${API_URL}/random`);
             await new Promise((resolve, reject) => setTimeout(resolve, 2000));
-            console.log('loading');
+            
             await dispatch(loadSinglePost(res));
             dispatch(endRequest());
 

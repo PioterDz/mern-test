@@ -25,7 +25,7 @@ const SinglePostForm = (props) => {
 }
 
 SinglePostForm.propTypes = {
-    post: PropTypes.object.isRequired,
+    post: PropTypes.object,
     request: PropTypes.object.isRequired,
 };
 

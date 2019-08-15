@@ -13,7 +13,6 @@ class RandomPost extends React.Component {
   
     render() {
         const { post, request } = this.props;
-        console.log(post, 'post');
         
         return <SinglePostForm post={post.data} request={request} />
     }
