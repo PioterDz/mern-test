@@ -17,7 +17,6 @@ const FormOfPosts = (props) => {
     const { post, request, handleChange, handleEditor, formFunc } = props;
 
     if(request.error) return <Alert variant="error">{request.error}</Alert>
-    else if(request.success) return <Alert variant="success">Post has been added!</Alert>
     else if(request.pending) return <Spinner />
     else return (
 

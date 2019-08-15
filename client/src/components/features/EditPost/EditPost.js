@@ -1,5 +1,8 @@
+    
 import React from 'react';
 import { PropTypes } from 'prop-types';
+
+import Alert from '../../common/Alert/Alert';
 
 import withPost from '../withPost/withPost';
 import FormOfPosts from '../FormOfPosts/FormOfPosts';
@@ -14,7 +17,7 @@ class EditPost extends React.Component {
         resetRequest();
         await loadPost(this.props.match.params.id);
         const { singlePost } = this.props;
-        fillUpState(singlePost);
+        await fillUpState(singlePost);
     }
 
     editPost = (e) => {
@@ -27,10 +30,12 @@ class EditPost extends React.Component {
 
 
     render() {
-        const { request, post, handleChange, handleEditor } = this.props;
+        const { request, handleChange, handleEditor, post } = this.props;
+        const { edited } = this.state;
         const { editPost } = this;
-    
-        return <FormOfPosts formFunc={editPost} request={request} post={post} handleChange={handleChange} handleEditor={handleEditor} />
+
+        if(request.success && edited) return <Alert variant="success">Post has been added!</Alert>
+        else return <FormOfPosts formFunc={editPost} request={request} post={post} handleChange={handleChange} handleEditor={handleEditor} />
     }
 }
 
@@ -42,4 +47,4 @@ EditPost.propTypes = {
     handleEditor: PropTypes.func.isRequired,
 };
 
-export default withPost(EditPost);
+export default EditPost;

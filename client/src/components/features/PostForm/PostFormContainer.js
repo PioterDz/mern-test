@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { getRequest, addPostRequest, resetRequest } from '../../../redux/postsRedux';
 import PostForm from './PostForm';
 
+
 const mapStateToProps = state => ({
   request: getRequest(state),
 });
@@ -12,3 +13,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostForm);
+
+// const enhance = compose(
+//   withPost,
+//   connect(mapStateToProps, mapDispatchToProps)
+// )
+// export default enhance(PostForm)

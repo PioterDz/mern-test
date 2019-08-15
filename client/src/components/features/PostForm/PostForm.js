@@ -1,6 +1,8 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 
+import Alert from '../../common/Alert/Alert';
+
 import FormOfPosts from '../FormOfPosts/FormOfPosts';
 import withPost from '../withPost/withPost';
 
@@ -23,7 +25,8 @@ class PostForm extends React.Component {
     const { addPost } = this;
     const { request, post, handleChange, handleEditor } = this.props;
 
-    return <FormOfPosts formFunc={addPost} request={request} post={post} handleChange={handleChange} handleEditor={handleEditor} />
+    if(request.success) return <Alert variant="success">Post has been added!</Alert>
+    else return <FormOfPosts formFunc={addPost} request={request} post={post} handleChange={handleChange} handleEditor={handleEditor} />
 
   }
 };
