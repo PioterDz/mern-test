@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { getPosts, getRequest, loadPostsByPageRequest, getPages, resetRequest, getPresentPage, getInitialPage } from '../../../redux/postsRedux';
-import Posts from './Posts';
+import HomePage from './HomePage';
 
 const mapStateToProps = state => ({
   posts: getPosts(state),
@@ -15,4 +15,4 @@ const mapDispatchToProps = dispatch => ({
   resetRequest: () => dispatch(resetRequest()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Posts);
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

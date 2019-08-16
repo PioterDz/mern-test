@@ -6,20 +6,33 @@ import Spinner from '../../common/Spinner/Spinner';
 import Alert from '../../common/Alert/Alert';
 import Pagination from '../../common/Pagination/Pagination';
 
-const PostsPattern = (props) => {
 
-    const { posts, request, pages, presentPage, pagination, loadPostsPage, cutText } = props;
+class PostsPattern extends React.Component {
 
-    if (request.pending || request.success === null) return <Spinner />
-    else if (!request.pending && request.error !== null) return <Alert variant={'error'} children={request.error} />
-    else if (!request.pending && request.success && posts.length === 0) return <Alert variant={'info'} children={'no posts'} />
-    else if (!request.pending && request.success && posts.length > 0) return (
-        <div>      
-            <PostsList posts={posts} cutText={cutText} />
-            { pagination ? <Pagination presentPage={presentPage} pages={pages} onPageChange={loadPostsPage} /> : '' }
-        </div>
-    );
+    render() {
+        const { posts, request, pages, presentPage, pagination, cutText, loadPostsPage } = this.props;
+
+        if (request.pending || request.success === null) return <Spinner />
+        else if (!request.pending && request.error !== null) return <Alert variant={'error'} children={request.error} />
+        else if (!request.pending && request.success && posts.length === 0) return <Alert variant={'info'} children={'no posts'} />
+        else if (!request.pending && request.success && posts.length > 0) return (
+            <div>      
+                <PostsList posts={posts} cutText={cutText} />
+                { pagination ? <Pagination presentPage={presentPage} pages={pages} onPageChange={loadPostsPage} /> : '' }
+            </div>
+        );
+    }
 
 }
+
+PostsPattern.propTypes = {
+    posts: PropTypes.array.isRequired,
+    request: PropTypes.object.isRequired,
+    pages: PropTypes.number.isRequired,
+    presentPage: PropTypes.number.isRequired,
+    pagination: PropTypes.bool.isRequired,
+    cutText: PropTypes.func.isRequired,
+    loadPostsPage: PropTypes.func.isRequired,
+};
 
 export default PostsPattern;
