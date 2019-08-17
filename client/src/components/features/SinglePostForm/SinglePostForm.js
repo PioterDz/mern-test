@@ -9,16 +9,16 @@ import Alert from '../../common/Alert/Alert';
 const SinglePostForm = (props) => {
 
     const { post, request } = props;
-    console.log(post, 'post');
+    
     if (request.pending || request.success === null) return <Spinner />
     else if (!request.pending && request.error !== null) return <Alert variant={'error'} children={request.error} />
     else if (!request.pending && request.success && Object.keys(post).length === 0) return <Alert variant={'info'} children={'no posts'} />
     else if (!request.pending && request.success && Object.keys(post).length > 0)
     return (
       <div>
-      <PageTitle>{ post.title }</PageTitle>
-      <p>Author: { post.author }</p>
-      <HtmlBox>{ post.content }</HtmlBox>
+      <PageTitle>{ post.data.title }</PageTitle>
+      <p>Author: { post.data.author }</p>
+      <HtmlBox>{ post.data.content }</HtmlBox>
       </div>
     );
 
