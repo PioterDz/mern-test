@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import { getPosts, getRequest, loadPostsByPageRequest, getPages, resetRequest, getPresentPage, getInitialPage } from '../../../redux/postsRedux';
+
 import Posts from './Posts';
+import HomePage from '../../pages/Home/HomePage';
 
 const mapStateToProps = state => ({
   posts: getPosts(state),
@@ -16,3 +18,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Posts);
+export const Home = connect(mapStateToProps, mapDispatchToProps)(HomePage);
