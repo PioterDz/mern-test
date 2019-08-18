@@ -2,10 +2,6 @@ import React from 'react';
 
 function withPost(WrappedComponent) {
     return class extends React.Component {
-        constructor(props) {
-            super(props);
-    
-        }
     
         state = {
             post: {

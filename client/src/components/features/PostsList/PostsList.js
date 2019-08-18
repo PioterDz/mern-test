@@ -12,14 +12,7 @@ const PostsList = ({ posts, cutText }) => (
 );
 
 PostsList.propTypes = {
-  posts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
-      author: PropTypes.string.isRequired,
-    })
-  ),
+  posts: PropTypes.array.isRequired
 };
 
 export default PostsList;

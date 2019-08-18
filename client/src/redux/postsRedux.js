@@ -14,8 +14,6 @@ export const getSinglePost = ({ posts }) => posts.singlePost;
 export const getPages = ({ posts }) => Math.ceil(posts.amount / posts.postsPerPage);
 export const getPresentPage = ({ posts }) => posts.presentPage;
 export const getInitialPage = ({ posts }) => posts.initialPage;
-export const getPostsPerPage = ({ posts }) => posts.postsPerPage;
-export const getPaginationBool = ({ posts }) => posts.pagination;
 
 /* ACTIONS */
 
@@ -47,10 +45,8 @@ const initialState = {
     },
     singlePost: {},
     amount: 0,
-    postsPerPage: 10,
     presentPage: 1,
     initialPage: 1,
-    pagination: true
 };
 
 /* THUNKS */
@@ -152,6 +148,24 @@ export const loadPostsByPageRequest = (page, postsPage) => {
   
     };
 };
+
+export const loadRandomPostRequest = () => {
+    return async dispatch => {
+  
+        dispatch(startRequest());
+        try {
+            let res = await axios.get(`${API_URL}/random`);
+            await new Promise((resolve, reject) => setTimeout(resolve, 2000));
+
+            await dispatch(loadSinglePost(res));
+            dispatch(endRequest());
+
+        } catch(e) {
+            dispatch(errorRequest(e.message));
+        }
+
+    };
+}
 
 /* REDUCER */
 
