@@ -17,21 +17,6 @@ const MainMenu = ({ links, location }) => (
   </ul>
 );
 
-// class MainMenu extends React.Component {
-
-//   render() {
-//     const { links, location } = this.props;
-//     return (
-//       <ul className="main-menu">
-//         { links.map((link, index) =>
-//         <li key={index}>
-//           <Link className={(location.pathname === link.path && 'active') || ''} to={link.path}>{link.title}</Link>
-//         </li>
-//         )}
-//       </ul>
-//     );
-//   }
-// }
 
 MainMenu.propTypes = {
   links: PropTypes.arrayOf(PropTypes.shape({
