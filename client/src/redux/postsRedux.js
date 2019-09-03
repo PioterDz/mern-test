@@ -58,7 +58,6 @@ export const loadPostsRequest = () => {
         try {
             
             let res = await axios.get(`${API_URL}/posts`);
-
             dispatch(loadPosts(res.data));
             dispatch(endRequest());
     
@@ -75,7 +74,6 @@ export const loadSinglePostRequest = (id) => {
         dispatch(startRequest());
         try {
             let res = await axios.get(`${API_URL}/posts/${id}`);
-
             await dispatch(loadSinglePost(res.data[0]));
             dispatch(endRequest());
         } catch(e) {
@@ -91,7 +89,6 @@ export const addPostRequest = (post) => {
         try {
     
             let res = await axios.post(`${API_URL}/posts`, post);
-
             dispatch(endRequest());
     
         } catch(e) {
@@ -108,7 +105,6 @@ export const editPostRequest = (post, id) => {
         try {
     
             let res = await axios.post(`${API_URL}/posts/edit/${id}`, post);
-
             dispatch(endRequest());
     
         } catch(e) {
