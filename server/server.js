@@ -16,21 +16,17 @@ app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 app.use(mongoSanitize({
   replaceWith: '_'
-}))
+}));
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '/../client/build')));
+
 app.use('/api', postRoutes);
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, '/../client/build')));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/../client/build/index.html'));
 });
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/../client/build/index.html'));
-});
-
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, '/../client/build')));
 
 // connects our back end code with the database
 mongoose.connect(config.DB, { useNewUrlParser: true });

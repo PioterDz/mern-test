@@ -1,5 +1,5 @@
 {
-  "name": "MERN-BlogProject",
+  "name": "mern",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -8,9 +8,11 @@
     "start:client": "cd client && yarn start",
     "install:client": "cd client && npm install",
     "install:server": "cd server && npm install",
+    "build": "run-p build:*",
+    "build:client": "cd client && npm run build",
     "postinstall": "run-p install:*"
   },
-  "repository": "https://github.com/PioterDz/MERN-BlogProject.git",
+  "repository": "https://github.com/PioterDz/mern-test.git",
   "author": "Piotr Dzienis <dojlidy.zubr@gmail.com>",
   "license": "MIT",
   "dependencies": {
