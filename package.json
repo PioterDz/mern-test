@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "npm-run-all -s -l build start:*",
+    "start": "npm-run-all -s -l start:*",
     "start:server": "cd server && yarn start",
     "start:client": "cd client && yarn start",
     "install:client": "cd client && npm install",
     "install:server": "cd server && npm install",
     "build": "run-p build:*",
     "build:client": "cd client && npm run build",
-    "postinstall": "run-p install:*"
+    "postinstall": "run-p install:*",
+    "heroku-postinstall": "npm run build"
   },
   "repository": "https://github.com/PioterDz/mern-test.git",
   "author": "Piotr Dzienis <dojlidy.zubr@gmail.com>",
