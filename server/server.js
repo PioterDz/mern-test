@@ -1,6 +1,7 @@
+const env = require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const config = require('./config');
+// const config = require('./config');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
@@ -27,9 +28,8 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/../client/build/index.html'));
 });
 
-
 // connects our back end code with the database
-mongoose.connect(config.DB, { useNewUrlParser: true });
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@clusterblog-84oj6.mongodb.net/test?retryWrites=true&w=majority`, { useNewUrlParser: true });
 let db = mongoose.connection;
 
 db.once('open', () => {
@@ -37,6 +37,6 @@ db.once('open', () => {
 });
 db.on('error', (err) => console.log('Error ' + err));
 
-app.listen(process.env.PORT, function() {
-  console.log('Server is running on Port:', process.env.PORT);
+app.listen(process.env.DB_PORT, function() {
+  console.log('Server is running on Port:', process.env.DB_PORT);
 });
