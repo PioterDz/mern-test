@@ -37,6 +37,6 @@ db.once('open', () => {
 });
 db.on('error', (err) => console.log('Error ' + err));
 
-app.listen(process.env.DB_PORT, function() {
-  console.log('Server is running on Port:', process.env.DB_PORT);
+app.listen(process.env.PORT || 8000, function() {
+  console.log('Server is running on Port:', process.env.PORT || 8000);
 });
