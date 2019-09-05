@@ -1,2 +1,2 @@
-export const API_URL = 'https://appmern.herokuapp.com/api';
+export const API_URL = '/api';
 export const BASE_URL = 'https://appmern.herokuapp.com';
