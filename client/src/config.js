@@ -1,2 +1,2 @@
-export const API_URL = process.env.REACT_APP_API || process.env.DB_API;
-export const BASE_URL = process.env.REACT_APP_BASE_URL || process.env.DB_BASE;
+export const API_URL = process.env.REACT_APP_API || '/api';
+export const BASE_URL = process.env.REACT_APP_BASE_URL || 'https://appmern.herokuapp.com';
