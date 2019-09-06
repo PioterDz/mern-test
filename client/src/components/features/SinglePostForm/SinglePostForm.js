@@ -25,7 +25,7 @@ const SinglePostForm = (props) => {
         <p>Author: { post.author }</p>
         <HtmlBox>{ post.content }</HtmlBox>
 
-        <FacebookProvider appId={process.env.REACT_APP_DB_FACEID || process.env.DB_FACEID}>
+        <FacebookProvider appId={process.env.REACT_APP_DB_FACEID || '2683371941697520'}>
           <Comments href={`${BASE_URL}/${location.pathname}`} />
           <ShareButton href={`${BASE_URL}/${location.pathname}`}>
             Share
