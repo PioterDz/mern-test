@@ -10,6 +10,7 @@ import HtmlBox from '../../common/HtmlBox/HtmlBox';
 import Spinner from '../../common/Spinner/Spinner';
 import Alert from '../../common/Alert/Alert';
 
+
 const SinglePostForm = (props) => {
 
     const { post, request, location } = props;
@@ -24,7 +25,7 @@ const SinglePostForm = (props) => {
         <p>Author: { post.author }</p>
         <HtmlBox>{ post.content }</HtmlBox>
 
-        <FacebookProvider appId={process.env.DB_FACEID}>
+        <FacebookProvider appId={process.env.REACT_APP_DB_FACEID}>
           <Comments href={`${BASE_URL}/${location.pathname}`} />
           <ShareButton href={`${BASE_URL}/${location.pathname}`}>
             Share
