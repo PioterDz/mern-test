@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 
-import { FacebookProvider, Comments, ShareButton } from 'react-facebook';
+import { FacebookProvider, Comments, Like } from 'react-facebook';
 import { withRouter } from 'react-router-dom';
 import { BASE_URL } from '../../../config';
 
@@ -25,13 +25,14 @@ const SinglePostForm = (props) => {
         <p>Author: { post.author }</p>
         <HtmlBox>{ post.content }</HtmlBox>
 
-        <FacebookProvider appId={process.env.REACT_APP_DB_FACEID || '2683371941697520'}>
-          <Comments href={`${BASE_URL}/${location.pathname}`} />
-          <ShareButton href={`${BASE_URL}/${location.pathname}`}>
-            Share
-          </ShareButton>
+        <FacebookProvider appId="2683371941697520">
+          <Comments href={`${BASE_URL}${location.pathname}`} />
+        </FacebookProvider>
+        <FacebookProvider appId="2683371941697520">
+          <Like href={`${BASE_URL}${location.pathname}`} colorScheme="dark" showFaces share />
         </FacebookProvider>
       </div>
+
     );
 
 }
